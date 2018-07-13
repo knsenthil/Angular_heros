@@ -1,0 +1,25 @@
+import { Injectable } from '@angular/core';
+
+import {Heroes} from './hero/heroes';
+import {HEROES} from './hero/mock-heroes';
+import { Observable,of } from 'rxjs';
+import {MessageService} from './message.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class HeroService {
+
+  constructor(private messageService:MessageService) { }
+
+  getHeroes():Observable<Heroes[]> {
+    this.messageService.add('Heroes are fetched successfull!');
+    return of(HEROES);
+  }
+
+  getHero(id:number):Observable<Heroes> {
+    this.messageService.add('HeroService: fetched hero id=${id}');
+    return of(HEROES.find(hero=>hero.id===id));
+  }
+
+}
